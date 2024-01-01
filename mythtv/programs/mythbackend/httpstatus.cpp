@@ -1265,12 +1265,12 @@ int HttpStatus::PrintMachineInfo( QTextStream &os, const QDomElement& info )
 
             if (id == "total")
             {
-                int nFree    = g.attribute("free" , "0" ).toInt();
-                int nTotal   = g.attribute("total", "0" ).toInt();
-                int nUsed    = g.attribute("used" , "0" ).toInt();
-                int nLiveTV    = g.attribute("livetv" , "0" ).toInt();
-                int nDeleted   = g.attribute("deleted", "0" ).toInt();
-                int nExpirable = g.attribute("expirable" , "0" ).toInt();
+                int nFree    = (int)(g.attribute("free" , "0" ).toInt()>>10);
+                int nTotal   = (int)(g.attribute("total", "0" ).toInt()>>10);
+                int nUsed    = (int)(g.attribute("used" , "0" ).toInt()>>10);
+                int nLiveTV    = (int)(g.attribute("livetv" , "0" ).toInt()>>10);
+                int nDeleted   = (int)(g.attribute("deleted", "0" ).toInt()>>10);
+                int nExpirable = (int)(g.attribute("expirable" , "0" ).toInt()>>10);
                 QString nDir = g.attribute("dir"  , "" );
 
                 nDir.replace(",", ", ");
@@ -1282,36 +1282,36 @@ int HttpStatus::PrintMachineInfo( QTextStream &os, const QDomElement& info )
                 << "          <ul>\r\n";
 
                 os << "            <li>Total Space: ";
-                sRep = QString("%L1").arg(nTotal) + " MB";
+                sRep = QString("%L1").arg(nTotal) + " GB";
                 os << sRep << "</li>\r\n";
 
                 os << "            <li>Space Used: ";
-                sRep = QString("%L1").arg(nUsed) + " MB";
+                sRep = QString("%L1").arg(nUsed) + " GB";
                 os << sRep << "</li>\r\n";
 
                 os << "            <li>Space Free: ";
-                sRep = QString("%L1").arg(nFree) + " MB";
+                sRep = QString("%L1").arg(nFree) + " GB";
                 os << sRep << "</li>\r\n";
 
                 if ((nLiveTV + nDeleted + nExpirable) > 0)
                 {
                     os << "            <li>Space Available "
                           "After Auto-expire: ";
-                    sRep = QString("%L1").arg(nUsed) + " MB";
+                    sRep = QString("%L1").arg(nUsed) + " GB";
                     sRep = QString("%L1").arg(nFree + nLiveTV +
-                                      nDeleted + nExpirable) + " MB";
+                                      nDeleted + nExpirable) + " GB";
                     os << sRep << "\r\n";
                     os << "              <ul>\r\n";
                     os << "                <li>Space Used by LiveTV: ";
-                    sRep = QString("%L1").arg(nLiveTV) + " MB";
+                    sRep = QString("%L1").arg(nLiveTV) + " GB";
                     os << sRep << "</li>\r\n";
                     os << "                <li>Space Used by "
                           "Deleted Recordings: ";
-                    sRep = QString("%L1").arg(nDeleted) + " MB";
+                    sRep = QString("%L1").arg(nDeleted) + " GB";
                     os << sRep << "</li>\r\n";
                     os << "                <li>Space Used by "
                           "Auto-expirable Recordings: ";
-                    sRep = QString("%L1").arg(nExpirable) + " MB";
+                    sRep = QString("%L1").arg(nExpirable) + " GB";
                     os << sRep << "</li>\r\n";
                     os << "              </ul>\r\n";
                     os << "            </li>\r\n";
@@ -1341,9 +1341,9 @@ int HttpStatus::PrintMachineInfo( QTextStream &os, const QDomElement& info )
 
         if (!g.isNull() && g.tagName() == "Group")
         {
-            int nFree    = g.attribute("free" , "0" ).toInt();
-            int nTotal   = g.attribute("total", "0" ).toInt();
-            int nUsed    = g.attribute("used" , "0" ).toInt();
+            int nFree    = (int)(g.attribute("free" , "0" ).toInt()>>10);
+            int nTotal   = (int)(g.attribute("total", "0" ).toInt()>>10);
+            int nUsed    = (int)(g.attribute("used" , "0" ).toInt()>>10);
             QString nDir = g.attribute("dir"  , "" );
             QString id   = g.attribute("id"   , "" );
 
@@ -1365,15 +1365,15 @@ int HttpStatus::PrintMachineInfo( QTextStream &os, const QDomElement& info )
                 os << nDir << "</li>\r\n";
 
                 os << "            <li>Total Space: ";
-                sRep = QString("%L1").arg(nTotal) + " MB";
+                sRep = QString("%L1").arg(nTotal) + " GB";
                 os << sRep << "</li>\r\n";
 
                 os << "            <li>Space Used: ";
-                sRep = QString("%L1").arg(nUsed) + " MB";
+                sRep = QString("%L1").arg(nUsed) + " GB";
                 os << sRep << "</li>\r\n";
 
                 os << "            <li>Space Free: ";
-                sRep = QString("%L1").arg(nFree) + " MB";
+                sRep = QString("%L1").arg(nFree) + " GB";
                 os << sRep << "</li>\r\n";
 
                 os << "          </ul>\r\n"
